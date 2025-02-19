@@ -14,3 +14,6 @@ SETTING_TOPIC= os.getenv('SETTING_TOPIC')
 # Telegram bot setting
 TELEGRAM_TOKEN= os.getenv('TELEGRAM_TOKEN')
 ALLOWED_IDS = [int(id) for id in os.getenv('ALLOWED_IDS').split(',')]
+
+# Relay setting
+RELAY_STATUS = "UNKNOWN"
