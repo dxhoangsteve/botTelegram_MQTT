@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 import os
 
 load_dotenv()
@@ -13,7 +14,7 @@ SETTING_TOPIC= os.getenv('SETTING_TOPIC')
 
 # Telegram bot setting
 TELEGRAM_TOKEN= os.getenv('TELEGRAM_TOKEN')
-ALLOWED_IDS = [int(id) for id in os.getenv('ALLOWED_IDS').split(',')]
+ALLOWED_IDS = os.getenv('ALLOWED_IDS').split(',')
 
 # Relay setting
 RELAY_STATUS = "UNKNOWN"
