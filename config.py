@@ -16,5 +16,7 @@ SETTING_TOPIC= os.getenv('SETTING_TOPIC')
 TELEGRAM_TOKEN= os.getenv('TELEGRAM_TOKEN')
 ALLOWED_IDS = os.getenv('ALLOWED_IDS').split(',')
 
-# Relay setting
-RELAY_STATUS = "UNKNOWN"
+RELAY_STATUS = {
+    "relay": "OFF",
+    "led": "OFF"
+}
