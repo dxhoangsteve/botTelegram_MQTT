@@ -1,12 +1,14 @@
 import json
-from config import TELEGRAM_TOKEN, RELAY_STATUS
+from mqtt import MqttBot
+from config import *
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes, CallbackContext
 from pytz import timezone
 
 class TelegramBot:
     # Khởi tạo TelegramBot - Initialize TelegramBot
-    def __init__(self):
+    def __init__(self, mqtt: MqttBot) -> None:
+        self.mqtt = mqtt
         self.application = Application.builder().token(TELEGRAM_TOKEN).build()
         self.application.job_queue.scheduler.configure(timezone=timezone('UTC'))
 
@@ -39,22 +41,22 @@ class TelegramBot:
 
     # Xử lý khi người dùng nhấn vào một nút
     async def button(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-        global RELAY_STATUS
         query = update.callback_query
         await query.answer()
 
         if query.data == 'ON':
-            RELAY_STATUS["relay"] = 'ON'
-            text = "/status để kiểm tra trạng thái relay"
+            RELAY_STATUS["relay"] = "ON"
+            text = "/status để kiểm ra trạng thái relay"
         elif query.data == 'OFF':
-            RELAY_STATUS["relay"] = 'OFF'
+            RELAY_STATUS["relay"] = "OFF"
             text = "/status để kiểm tra trạng thái relay"
 
         try:
             await query.edit_message_text(text=text, reply_markup=None)
             print(json.dumps(RELAY_STATUS))
+            self.mqtt.publish(BOT_TOPIC, RELAY_STATUS)
         except Exception as e:
-            print(f"Error: {e}")  # In ra lỗi nếu có - Print error if any
+            print(f"Error: {e}")  
 
     # Hàm xử lý lệnh /help - Handle the /help command
     async def help_command(self, update: Update, context: CallbackContext) -> None:

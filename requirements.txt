@@ -1,3 +1,5 @@
 python-telegram-bot
 paho-mqtt
 python-dotenv
+pytz
+telegramBot

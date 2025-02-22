@@ -9,8 +9,8 @@ MQTT_USER = os.getenv('MQTT_USER')
 MQTT_PASS = os.getenv('MQTT_PASS')
 MQTT_PORT = os.getenv('MQTT_PORT')
 
-STATUS_TOPIC= os.getenv('STATUS_TOPIC')
-SETTING_TOPIC= os.getenv('SETTING_TOPIC')
+BOT_TOPIC= os.getenv('BOT_PUB')
+ESP_TOPIC= os.getenv('ESP_PUB')
 
 # Telegram bot setting
 TELEGRAM_TOKEN= os.getenv('TELEGRAM_TOKEN')
